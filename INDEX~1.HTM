@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Optimizador de Cargas · Recocido Ternium</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Optimizador de Cargas · Horno Campana</h1>
+    <div class="sub" id="upload-stats">Sube un archivo Excel de inventario para comenzar.</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button id="btn-export" class="primary">Exportar Excel</button>
+  </div>
+</div>
+
+<!-- Upload zone -->
+<div class="upload-zone" id="upload-zone">
+  <div class="icon">📁</div>
+  <div class="main-msg" id="upload-zone-msg">Arrastra tu Excel de inventario aquí, o haz clic para seleccionar</div>
+  <div class="sub-msg">Formatos soportados: PRAM, CHU/Práctica, LAV Guerrero — auto-detección</div>
+  <input id="file-input" type="file" accept=".xlsx,.xls,.xlsm">
+</div>
+
+<!-- App content (hidden until file loaded) -->
+<div class="app-content">
+
+  <!-- Conflicts warning banner -->
+  <div class="banner warning" id="warn-banner" style="display:none" onclick="window._app.showConflictsModal()">
+    <span class="icon">⚠</span>
+    <span id="warn-text"></span>
+    <span class="link">Ver detalles</span>
+  </div>
+
+  <!-- Info: nivel auto-asignado -->
+  <div class="banner info">
+    <span class="icon">ℹ</span>
+    <span>Línea 1–40 y A–G: niveles S/C/A auto-asignados por antigüedad (más viejo = base A). Borde punteado azul los marca. <strong>Click derecho</strong> sobre un rollo para excluirlo/incluirlo. En sugerencias: botón <strong>Eliminar</strong> quita el rollo del inventario permanentemente.</span>
+  </div>
+
+  <!-- Confirmed loads -->
+  <div class="confirmed" id="confirmed-sec" style="display:none">
+    <div class="cf-h">
+      <h3 id="cs-title">Cargas confirmadas</h3>
+      <div class="cf-h-actions">
+        <button id="btn-undo-all">Deshacer todas</button>
+      </div>
+    </div>
+    <div class="cf-list" id="cs-list"></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-tab="constructor">Constructor</button>
+    <button class="tab" data-tab="comparador">Comparador de estrategias</button>
+    <button class="tab" data-tab="estadisticas">Estadísticas</button>
+  </div>
+
+  <!-- Tab: Constructor -->
+  <div class="tab-content active" data-tab="constructor">
+    <div class="header" style="margin-bottom:8px">
+      <div class="sub" id="invsub"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="ctrl-grp"><label>λ grúa</label><input type="range" id="lambda" min="0" max="0.5" step="0.025" value="0.15"><span class="val" id="lambda-out">0.15</span></div>
+      <div class="ctrl-grp"><label>Top N</label><input type="range" id="topn" min="3" max="20" step="1" value="10"><span class="val" id="topn-out">10</span></div>
+      <div class="ctrl-grp"><label>Modo</label><div class="mode-toggle"><button id="m-ranked" class="active">Ranked</button><button id="m-disjoint">Sin repetir</button></div></div>
+      <div class="ctrl-grp" id="strat-grp" style="display:none"><label>Estrategia</label><select id="strategy">
+        <option value="best">Best loads</option>
+        <option value="altura">Altura</option>
+        <option value="peso">Peso</option>
+        <option value="balanceada">Balanceada</option>
+        <option value="antiguedad">Antigüedad</option>
+      </select></div>
+      <div class="ctrl-grp"><label><input type="checkbox" id="opt-lav" checked> No mezclar LAV</label></div>
+      <div class="ctrl-grp"><label><input type="checkbox" id="opt-cal" checked> Calibre P1 ≤ 25</label></div>
+      <button id="btn-constraints" style="margin-left:auto">⚙ Restricciones</button>
+      <button id="btn-sugg" class="primary">▶ Sugerir cargas</button>
+    </div>
+
+    <!-- Panel de restricciones (oculto por defecto) -->
+    <div class="constraints-panel" id="constraints-panel" style="display:none">
+      <h4>Restricciones del horno campana <button id="btn-constraints-close">✕ Cerrar</button></h4>
+      <div class="constraints-grid">
+        <div class="constraint-field">
+          <label>Altura máxima (mm)</label>
+          <input type="number" id="c-hmax" value="5200" min="1000" max="10000" step="100">
+          <span class="hint">Default: 5200 mm</span>
+        </div>
+        <div class="constraint-field">
+          <label>Peso máximo (kg)</label>
+          <input type="number" id="c-wmax" value="180000" min="10000" max="500000" step="1000">
+          <span class="hint">Default: 180,000 kg (180 t)</span>
+        </div>
+        <div class="constraint-field">
+          <label>Máx. rollos por carga</label>
+          <input type="number" id="c-nmax" value="5" min="2" max="10" step="1">
+          <span class="hint">Default: 5 rollos</span>
+        </div>
+        <div class="constraint-field">
+          <label>Mín. rollos por carga</label>
+          <input type="number" id="c-nmin" value="2" min="1" max="5" step="1">
+          <span class="hint">Default: 2 rollos</span>
+        </div>
+        <div class="constraint-field">
+          <label>Separador entre rollos (mm)</label>
+          <input type="number" id="c-spacer" value="80" min="0" max="500" step="10">
+          <span class="hint">Default: 80 mm</span>
+        </div>
+        <div class="constraint-field">
+          <label>Calibre máx. en P1 (base)</label>
+          <input type="number" id="c-calp1" value="25" min="1" max="100" step="1">
+          <span class="hint">Default: 25</span>
+        </div>
+        <div class="constraint-field">
+          <label>Antigüedad máx. a normalizar (días)</label>
+          <input type="number" id="c-maxantig" value="30" min="7" max="365" step="1">
+          <span class="hint">Default: 30 días</span>
+        </div>
+      </div>
+      <div class="constraints-actions">
+        <button class="primary" id="btn-constraints-apply">Aplicar restricciones</button>
+        <button id="btn-constraints-reset">Restablecer defaults</button>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend" id="legend"></div>
+
+    <!-- Main layout -->
+    <div class="main">
+      <div class="zone-card">
+        <div class="zone-title">LÍNEA 1–40 + A–G</div>
+        <div id="linea"></div>
+      </div>
+      <div class="zone-card">
+        <div class="zone-title">CUADRO 46–54</div>
+        <div id="cuadro"></div>
+      </div>
+      <div class="panel" id="panel"></div>
+    </div>
+
+    <!-- Suggestions -->
+    <div class="suggest" id="suggest" style="display:none">
+      <div class="sg-h">
+        <h3 id="sg-title">Top cargas</h3>
+        <span style="font-size:11px;color:var(--text-tertiary)" id="sg-meta"></span>
+      </div>
+      <div class="sg-list" id="sg-list"></div>
+      <div class="fmla" id="fmla"></div>
+    </div>
+  </div>
+
+  <!-- Tab: Comparador -->
+  <div class="tab-content" data-tab="comparador">
+    <div id="comparador-content">
+      <div style="padding:40px;text-align:center;color:var(--text-tertiary)">Carga un Excel primero.</div>
+    </div>
+  </div>
+
+  <!-- Tab: Estadísticas -->
+  <div class="tab-content" data-tab="estadisticas">
+    <div id="stats-content"></div>
+  </div>
+
+</div>
+
+<!-- Tooltip -->
+<div class="tt" id="tt"></div>
+
+<!-- Modal -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <button class="modal-close">×</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- SheetJS via CDN (~900 KB) -->
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="js/parsers.js"></script>
+<script src="js/optimizer.js"></script>
+<script src="js/visualization.js"></script>
+<script src="js/exporter.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
