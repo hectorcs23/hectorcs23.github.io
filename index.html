@@ -1,239 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hector Campbell · Engineering Physics</title>
-<meta name="description" content="Hector Campbell Salas — Engineering Physics student at Tec de Monterrey. Heat transfer, numerical modeling, FSAE powertrain and quantitative finance projects.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231f3a5f'/><text x='50' y='66' font-size='50' text-anchor='middle' fill='white' font-family='Helvetica,Arial' font-weight='700'>HC</text></svg>">
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Selected engineering, scientific computing and quantitative projects by Héctor Campbell Salas." />
+    <meta name="theme-color" content="#f8f8f5" />
+    <title>Projects — Héctor Campbell Salas</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#projects">Skip to projects</a>
 
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top">Hector Campbell</a>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
+    <header class="site-header">
+      <a class="name" href="#projects">Héctor Campbell Salas</a>
+      <nav class="tab-nav" aria-label="Portfolio section">
+        <a href="#projects" aria-current="page">Projects</a>
+      </nav>
+    </header>
 
-<main id="top">
+    <main id="projects" class="page-shell">
+      <header class="view-heading">
+        <h1>Projects</h1>
+        <p>Engineering, scientific computing and quantitative research.</p>
+      </header>
 
-<!-- HERO -->
-<section class="hero wrap">
-  <div class="hero-text">
-    <p class="eyebrow">Engineering Physics · Tec de Monterrey · 2027</p>
-    <h1>Hector Campbell Salas</h1>
-    <p class="lead">I build physics-based models that people use to make decisions: heat-transfer digital twins for a steel plant, the cooling loop of a Formula SAE electric car, and risk tools for markets.</p>
-    <div class="hero-links">
-      <a class="btn primary" href="#projects">See projects</a>
-      <a class="btn" href="https://github.com/hectorcs23" target="_blank" rel="noopener">GitHub</a>
-    </div>
-    <ul class="facts">
-      <li><strong>Ternium</strong> Process trainee, cold rolling</li>
-      <li><strong>McGill</strong> CFD research stay, Fall 2026</li>
-      <li><strong>Tec Racing FSAE</strong> Team Lead, ex-Powertrain Lead</li>
-    </ul>
-  </div>
-  <figure class="hero-img">
-    <img src="https://raw.githubusercontent.com/hectorcs23/fsae-ev-drivetrain-cooling/main/figures/cooling_in_chassis.png" alt="Cooling system integrated in the Tec Racing FSAE chassis">
-    <figcaption>Tec Racing FSAE EV. I led the powertrain and cooling design.</figcaption>
-  </figure>
-</section>
+      <div class="project-list">
+        <article class="project">
+          <div class="project-meta"><span>Options risk</span><span>TypeScript</span></div>
+          <h2><a href="https://github.com/hectorcs23/riskgate-options-risk-engine" rel="noreferrer">RiskGate</a></h2>
+          <p>A pre-trade options risk gate with rule-based scoring, hard stops, Monte Carlo probability of profit and Kelly-capped position sizing.</p>
+        </article>
 
-<!-- ABOUT -->
-<section id="about" class="wrap section">
-  <h2>About</h2>
-  <div class="about-grid">
-    <div>
-      <p>I'm an Engineering Physics student at Tec de Monterrey (Academic Talent Scholarship, GPA 92/100). Most of my work sits where physics meets a real constraint: a furnace cycle that costs production time, a radiator that has to fit behind a driver, a trade that has to pass a risk budget.</p>
-      <p>My usual loop is to write the model from first principles, calibrate it against measurements, and then check whether it actually holds up. Each project on this page includes that last step, including the places where the original numbers were wrong.</p>
-    </div>
-    <div class="side">
-      <h3>Toolkit</h3>
-      <p class="chips">
-        <span>Python</span><span>MATLAB</span><span>ANSYS Fluent</span><span>ANSYS Mechanical</span><span>SolidWorks</span><span>Finite volumes / differences</span><span>Optimization</span><span>Time series</span><span>KiCad</span><span>Arduino</span><span>LaTeX</span>
-      </p>
-      <h3>Languages</h3>
-      <p>Spanish (native) · English (C1) · German (B1)</p>
-    </div>
-  </div>
-</section>
+        <article class="project">
+          <div class="project-meta"><span>Industrial optimization</span><span>Ternium internship</span></div>
+          <h2><a href="https://github.com/hectorcs23/bell-annealing-optimization" rel="noreferrer">Bell-furnace annealing</a></h2>
+          <p>A coil-load optimizer and thermal digital twin of the coil heat field. The public repository documents the engineering approach while keeping plant-specific details private.</p>
+        </article>
 
-<!-- EXPERIENCE -->
-<section id="experience" class="wrap section">
-  <h2>Experience</h2>
+        <article class="project">
+          <div class="project-meta"><span>Vehicle engineering</span><span>Python</span></div>
+          <h2><a href="https://github.com/hectorcs23/fsae-ev-drivetrain-cooling" rel="noreferrer">FSAE EV drivetrain and cooling</a></h2>
+          <p>An EMRAX 228 chain-drivetrain study and dual-radiator cooling loop, including a fresh analysis of the original design calculations.</p>
+        </article>
 
-  <article class="job">
-    <div class="job-head">
-      <h3>CFD Research Stay <span>· McGill University</span></h3>
-      <p class="when">Sep – Dec 2026 · Montréal</p>
-    </div>
-    <p>Undergraduate research in computational fluid dynamics.</p>
-  </article>
+        <article class="project">
+          <div class="project-meta"><span>3D reconstruction</span><span>Python</span></div>
+          <h2><a href="https://github.com/hectorcs23/fringe-projection-3d-reconstruction" rel="noreferrer">Fringe-projection 3D scanner</a></h2>
+          <p>A structured-light scanner using four-step phase shifting, multi-frequency unwrapping and triangulation to produce a 3D-printable STL.</p>
+        </article>
 
-  <article class="job">
-    <div class="job-head">
-      <h3>Process Trainee, Cold Rolling <span>· Ternium</span></h3>
-      <p class="when">2026 · Monterrey</p>
-    </div>
-    <ul>
-      <li>Turned a first-place <em>Statistical Thermodynamics</em> course project into a production thermal digital twin of bell annealing furnaces. It predicts the coil cold spot with an <strong>RMSE of 12.6 °C</strong>.</li>
-      <li>Added JMAK recrystallization and a mechanical-property model. In production trials, cycles for thicker coils ran <strong>8 % shorter</strong>, and yield strength, hardness and elongation predictions stayed <strong>within 10 %</strong> of measured values.</li>
-      <li>Designed and deployed a simulated-annealing load optimizer integrated into plant systems. Trials showed a measured increase in weekly production.</li>
-    </ul>
-    <a class="more" href="https://github.com/hectorcs23/bell-annealing-optimization" target="_blank" rel="noopener">Project overview →</a>
-  </article>
+        <article class="project">
+          <div class="project-meta"><span>Robotics and sensing</span><span>Python</span></div>
+          <h2><a href="https://github.com/hectorcs23/screen-luminance-robot-arm" rel="noreferrer">Screen-luminance robot arm</a></h2>
+          <p>A two-degree-of-freedom arm, VEML7700 light sensor and Python control application for measuring display luminance, with a full sensor characterization.</p>
+        </article>
 
-  <article class="job">
-    <div class="job-head">
-      <h3>Team Lead <span>· Tec Racing Formula SAE Electric</span></h3>
-      <p class="when">Apr 2025 – Jun 2026 · Tec de Monterrey</p>
-    </div>
-    <ul>
-      <li>Restructured the team by creating Chief Engineer, Business Lead, Manufacturing Lead and Project Manager roles, and grew it to <strong>~100 members</strong>.</li>
-      <li>Secured the FSAE México spot and the team's sponsorships.</li>
-      <li>Earlier, as <strong>Powertrain Lead</strong>, designed the chain transmission and the liquid cooling system.</li>
-    </ul>
-    <a class="more" href="https://github.com/hectorcs23/fsae-ev-drivetrain-cooling" target="_blank" rel="noopener">Drivetrain &amp; cooling →</a>
-  </article>
-</section>
+        <article class="project">
+          <div class="project-meta"><span>Dynamics</span><span>Python</span></div>
+          <h2><a href="https://github.com/hectorcs23/rotary-cutter-dynamics" rel="noreferrer">Rotary-cutter dynamics</a></h2>
+          <p>A Lagrangian dynamic model and simulator of an agricultural rotary cutter, followed by a disc redesign that reduces spin-up energy by about 23%.</p>
+        </article>
 
-<!-- PROJECTS -->
-<section id="projects" class="wrap section">
-  <div class="proj-head">
-    <h2>Projects</h2>
-    <div class="filters" role="group" aria-label="Filter projects">
-      <button class="on" data-f="all">All</button>
-      <button data-f="eng">Engineering</button>
-      <button data-f="phys">Physics &amp; numerics</button>
-      <button data-f="fin">Quant finance</button>
-    </div>
-  </div>
+        <article class="project">
+          <div class="project-meta"><span>Quantum mechanics</span><span>Python and Manim</span></div>
+          <h2><a href="https://github.com/hectorcs23/wave-packet-potential-barrier" rel="noreferrer">Wave packet at a potential barrier</a></h2>
+          <p>Gaussian wave-packet scattering with analytic eigenstates, numerical verification and animations that include the Hartman effect.</p>
+        </article>
 
-  <div class="grid">
+        <article class="project">
+          <div class="project-meta"><span>Forecasting</span><span>Jupyter Notebook</span></div>
+          <h2><a href="https://github.com/hectorcs23/sarima-fuel-demand" rel="noreferrer">Fuel demand and price forecasting</a></h2>
+          <p>SARIMA models for a five-station fuel retailer, with AIC order search, residual diagnostics and 95% forecast intervals for each station.</p>
+        </article>
 
-    <a class="card" data-t="eng" href="https://github.com/hectorcs23/fsae-ev-drivetrain-cooling" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://raw.githubusercontent.com/hectorcs23/fsae-ev-drivetrain-cooling/main/figures/cooling_in_chassis.png" alt="">
-      <div class="body">
-        <h3>FSAE EV drivetrain &amp; cooling</h3>
-        <p>EMRAX 228 chain drive (GR 4.0) and a dual-radiator ε-NTU cooling loop, followed by a re-analysis of the team's own calculations.</p>
-        <p class="result">Motor inlet at 48.2 °C at the design point. The re-analysis found a legal operating point at 51 °C.</p>
-        <p class="tags"><span>Heat transfer</span><span>FEA</span><span>CFD</span><span>Python</span></p>
+        <article class="project">
+          <div class="project-meta"><span>Quantitative research</span><span>Python</span></div>
+          <h2><a href="https://github.com/hectorcs23/cross-asset-stat-arb" rel="noreferrer">Cross-asset statistical arbitrage</a></h2>
+          <p>A market-neutral study across 32 ETFs using PCA and factor residuals, Ornstein–Uhlenbeck z-scores, robustness tests and Alpaca paper trading.</p>
+        </article>
       </div>
-    </a>
+    </main>
 
-    <a class="card" data-t="eng phys" href="https://github.com/hectorcs23/bell-annealing-optimization" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://raw.githubusercontent.com/hectorcs23/bell-annealing-optimization/main/docs/img/coil_field.png" alt="">
-      <div class="body">
-        <h3>Bell-furnace digital twin</h3>
-        <p>Anisotropic axisymmetric heat equation for wound steel coils, with a recrystallization layer and a load optimizer. Built at Ternium.</p>
-        <p class="result">Cold-spot RMSE 12.6 °C, and cycles 8 % shorter in trials.</p>
-        <p class="tags"><span>Finite volumes</span><span>Metallurgy</span><span>Optimization</span></p>
-      </div>
-    </a>
-
-    <a class="card" data-t="phys" href="https://github.com/hectorcs23/fringe-projection-3d-reconstruction" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://raw.githubusercontent.com/hectorcs23/fringe-projection-3d-reconstruction/main/docs/img/hero.png" alt="">
-      <div class="body">
-        <h3>3D scanning by fringe projection</h3>
-        <p>A camera and a mini projector make a structured-light scanner: 4-step phase shifting, multi-frequency unwrapping and triangulation, exported to a printable STL.</p>
-        <p class="result">From projected fringes to a 3D-printed copy of the object.</p>
-        <p class="tags"><span>Optics</span><span>Signal processing</span><span>Python</span></p>
-      </div>
-    </a>
-
-    <a class="card" data-t="phys" href="https://github.com/hectorcs23/wave-packet-potential-barrier" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://raw.githubusercontent.com/hectorcs23/wave-packet-potential-barrier/main/media/tunneling.gif" alt="">
-      <div class="body">
-        <h3>Wave packet vs. potential barrier</h3>
-        <p>Analytic scattering states, a Gaussian packet built from them, Manim animations and the Hartman effect, all numerically verified.</p>
-        <p class="result">Transmission matches the spectral prediction to 1 part in 10⁴.</p>
-        <p class="tags"><span>Quantum mechanics</span><span>Numerics</span><span>Manim</span></p>
-      </div>
-    </a>
-
-    <a class="card" data-t="eng" href="https://github.com/hectorcs23/screen-luminance-robot-arm" target="_blank" rel="noopener">
-      <img class="photo" loading="lazy" src="https://raw.githubusercontent.com/hectorcs23/screen-luminance-robot-arm/main/docs/img/PrototipoRealMontado.png" alt="">
-      <div class="body">
-        <h3>Luminance meter on a 2-DOF arm</h3>
-        <p>3D-printed arm, PCB, inverse kinematics and a Python control app that maps display luminance for a Carrier challenge.</p>
-        <p class="result">The sensor error turned out to be a single gain factor: 2.3 % after a one-point calibration.</p>
-        <p class="tags"><span>Hardware</span><span>Metrology</span><span>PCB</span></p>
-      </div>
-    </a>
-
-    <a class="card" data-t="eng phys" href="https://github.com/hectorcs23/rotary-cutter-dynamics" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://raw.githubusercontent.com/hectorcs23/rotary-cutter-dynamics/main/docs/img/hero.png" alt="">
-      <div class="body">
-        <h3>Rotary cutter dynamics</h3>
-        <p>Lagrangian model of a rotor with free-swinging blades, driven by an engine torque curve, plus a structural redesign of the disc.</p>
-        <p class="result">The redesigned disc needs 23 % less spin-up energy.</p>
-        <p class="tags"><span>Dynamics</span><span>ODEs</span><span>Topology optimization</span></p>
-      </div>
-    </a>
-
-    <a class="card" data-t="fin" href="https://github.com/hectorcs23/cross-asset-stat-arb" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://raw.githubusercontent.com/hectorcs23/cross-asset-stat-arb/main/results/paper-trading/equity_curve.png" alt="">
-      <div class="body">
-        <h3>Cross-asset statistical arbitrage</h3>
-        <p>PCA and factor residuals on 32 ETFs, modeled as Ornstein–Uhlenbeck processes. Robustness-tested and running live on a paper account.</p>
-        <p class="result">Out-of-sample Sharpe 0.87, and +4.3 % live on paper.</p>
-        <p class="tags"><span>Stochastic processes</span><span>Backtesting</span><span>Python</span></p>
-      </div>
-    </a>
-
-    <a class="card" data-t="fin" href="https://github.com/hectorcs23/riskgate-options-risk-engine" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://raw.githubusercontent.com/hectorcs23/riskgate-options-risk-engine/main/docs/img/exit-forecasting-equity.png" alt="">
-      <div class="body">
-        <h3>RiskGate</h3>
-        <p>A pre-trade risk gate for options: continuous quality scoring, hard stops, Monte Carlo probability of profit and Kelly-capped sizing.</p>
-        <p class="result">Every trade has to pass the rules before capital goes in.</p>
-        <p class="tags"><span>Risk</span><span>Monte Carlo</span><span>TypeScript</span></p>
-      </div>
-    </a>
-
-    <a class="card" data-t="fin phys" href="https://github.com/hectorcs23/sarima-fuel-demand" target="_blank" rel="noopener">
-      <img loading="lazy" src="https://raw.githubusercontent.com/hectorcs23/sarima-fuel-demand/main/docs/img/station_forecast.png" alt="">
-      <div class="body">
-        <h3>SARIMA fuel demand</h3>
-        <p>Demand and price forecasts with prediction intervals for a five-station fuel retailer, tested out of sample.</p>
-        <p class="result">17–21 % better than a naive forecast on gasoline demand. Prices behave like a random walk.</p>
-        <p class="tags"><span>Time series</span><span>Forecasting</span><span>statsmodels</span></p>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="wrap section contact">
-  <h2>Contact</h2>
-  <p>The fastest way to reach me is through GitHub. Each repository has the full write-up, code where it can be shared, and the numbers behind every claim on this page.</p>
-  <p class="hero-links">
-    <a class="btn primary" href="https://github.com/hectorcs23" target="_blank" rel="noopener">github.com/hectorcs23</a>
-  </p>
-</section>
-
-</main>
-
-<footer class="wrap foot">
-  <p>© 2026 Hector Enrique Campbell Salas · Monterrey, México</p>
-</footer>
-
-<script>
-  const buttons = document.querySelectorAll('.filters button');
-  const cards = document.querySelectorAll('.card');
-  buttons.forEach(b => b.addEventListener('click', () => {
-    buttons.forEach(x => x.classList.toggle('on', x === b));
-    const f = b.dataset.f;
-    cards.forEach(c => { c.hidden = !(f === 'all' || c.dataset.t.split(' ').includes(f)); });
-  }));
-</script>
-</body>
+    <footer>
+      <p>Héctor Campbell Salas <span aria-hidden="true">/</span> 2026</p>
+      <a href="https://github.com/hectorcs23" rel="noreferrer">GitHub</a>
+    </footer>
+  </body>
 </html>
