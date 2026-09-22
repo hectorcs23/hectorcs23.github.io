@@ -221,3 +221,14 @@ footer p { margin: 0; }
 /* section headings */
 .group-title { margin: 3.5rem 0 0; padding-bottom: 0.9rem; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
 .project-list > .group-title:first-child { margin-top: 1rem; }
+
+/* filter tabs (same style as the header tabs) */
+.filter { display: flex; flex-wrap: wrap; gap: 0 2.25rem; margin: 0; }
+.filter button { position: relative; padding: 0 0 0.95rem; border: 0; background: none; font: inherit; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); cursor: pointer; transition: color 0.2s; }
+.filter button:hover, .filter button[aria-pressed="true"] { color: var(--ink); }
+.filter button[aria-pressed="true"]::after { content: ""; position: absolute; right: 0; bottom: -1px; left: 0; height: 2px; background: var(--accent); }
+.filter button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.filter .short { display: none; }
+.group[hidden] { display: none; }
+body:not([data-filter="all"]) .group-title { display: none; }
+@media (max-width: 560px) { .filter { gap: 0 1.4rem; } .filter button { font-size: 0.8rem; } .filter .long { display: none; } .filter .short { display: inline; } }
