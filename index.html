@@ -214,7 +214,6 @@
             <a class="project-link" href="https://github.com/hectorcs23/sarima-fuel-demand" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>
           </div>
         </article>
-      </section>
       </div>
     </main>
 
@@ -223,26 +222,5 @@
       <a href="https://github.com/hectorcs23" rel="noreferrer">GitHub</a>
     </footer>
 
-    <script>
-      (function () {
-        var buttons = document.querySelectorAll('.filter button');
-        var groups = document.querySelectorAll('.group');
-        function apply(f) {
-          if (f !== 'engineering' && f !== 'quant') f = 'all';
-          buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.filter === f)); });
-          groups.forEach(function (g) { g.hidden = f !== 'all' && g.dataset.group !== f; });
-          document.body.dataset.filter = f;
-        }
-        buttons.forEach(function (b) {
-          b.addEventListener('click', function () {
-            var f = b.dataset.filter;
-            history.replaceState(null, '', f === 'all' ? location.pathname : '#' + f);
-            apply(f);
-          });
-        });
-        apply(location.hash.slice(1));
-        window.addEventListener('hashchange', function () { apply(location.hash.slice(1)); });
-      })();
-    </script>
   </body>
 </html>
