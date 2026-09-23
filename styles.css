@@ -202,10 +202,11 @@ h1, h2, p { margin-top: 0; }
 }
 
 .project-visual {
+  max-width: 44rem;
   margin: 2rem 0 1.75rem;
 }
 
-.project-visual--compact { max-width: 48rem; }
+.project-visual--compact { max-width: 40rem; }
 
 .project-visual img {
   display: block;
