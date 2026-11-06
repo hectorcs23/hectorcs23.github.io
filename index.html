@@ -48,8 +48,10 @@
             <img src="assets/projects/riskgate-exit-forecasting.png" alt="Cumulative wealth comparison between buy and hold and EWMA, GJR-GARCH-t and DeepAR-style exit forecasts" loading="lazy" decoding="async" />
             <figcaption>Out-of-sample cumulative wealth compares the exit-forecasting approaches with a buy-and-hold benchmark.</figcaption>
           </figure>
+          <div class="project-text">
           <p class="project-description">The engine combines market regime, technical setup, option quality and trade-plan discipline into a continuous score. Hard stops reject trades that violate non-negotiable constraints; accepted trades continue to Monte Carlo probability-of-profit analysis and Kelly-capped position sizing. The decision path stays explicit and auditable instead of hiding behind a black-box model.</p>
           <p class="project-description">A separate study asked whether a forecast should drive the <em>exit</em>: ten large-cap tickers, training through 2021, out-of-sample from 2024, 5 bps of costs. A GJR-GARCH(1,1)-t volatility filter looked best on risk-adjusted terms — Sharpe 1.31 against 1.16 for buy and hold, with the drawdown cut from −27.5% to −18.5% — while an EWMA filter and a DeepAR-style LSTM did not. A second, stricter run settled it: with per-asset normalization, gradual exits and a quantile LightGBM benchmark, the bootstrap 90% interval for the Sharpe difference against buy and hold straddles zero.</p>
+          </div>
           <div class="project-bottom">
             <p class="project-result"><span>Key output</span> Approve, reject or resize before the order is placed.</p>
             <p class="project-result"><span>What the validation decided</span> The GARCH advantage did not hold up, so none of these exit rules was added to the live score. The engine is explainable, not proven profitable.</p>
