@@ -1,25 +1,30 @@
-/* QuantileFlow — motor del comparador por presupuesto, portado a JavaScript.
+/* QuantileFlow — budget comparator engine, ported to JavaScript.
  *
- * Es la traduccion del motor Python de hectorcs23/QuantileFlow:
- *   quantileflow/escenarios.py   comparar_contratos  (cantidades, costos, PnL)
- *   quantileflow/comparador.py   comparar_con_pdf    (rankings y capital)
- *   quantileflow/posiciones.py   comparar_posiciones (vista por posicion)
+ * This is a translation of the Python engine in hectorcs23/QuantileFlow:
+ *   quantileflow/escenarios.py   comparar_contratos  (quantities, costs, PnL)
+ *   quantileflow/comparador.py   comparar_con_pdf    (rankings and capital)
+ *   quantileflow/posiciones.py   comparar_posiciones (per-position view)
  *   quantileflow/opciones.py     precio_bs, griegas_bs
  *
- * Diferencia deliberada: el motor Python revalora con un solver PDE de 1601
- * nodos; aqui se usa la forma cerrada de Black-Scholes. Para europeas con IV
- * plana -- el alcance que el propio motor declara -- son equivalentes, y el
- * repositorio ya lo midio: experiments/valoracion_consistente_20261010 compara
- * las dos vias en 90 casos con un error de precio del orden de 3e-5.
- * verificar.cjs vuelve a comprobarlo contra esos mismos casos.
+ * Identifiers are deliberately kept in Spanish, mirroring the Python modules
+ * they come from, so the port can be read line against line with its source.
+ * Comments and anything a user sees are in English.
  *
- * Datos sinteticos. No hay conexion con ningun broker, no se estiman
- * probabilidades y no se recomienda ninguna compra.
+ * Deliberate difference: the Python engine reprices with a 1601-node PDE
+ * solver; here the closed form of Black-Scholes is used instead. For European
+ * options with flat IV -- the scope the engine itself declares -- the two are
+ * equivalent, and the repository already measured it:
+ * experiments/valoracion_consistente_20261010 compares both routes over 90
+ * cases with a price error of the order of 3e-5. verificar.cjs checks it again
+ * against those same cases.
+ *
+ * Synthetic data. No broker connection, no probabilities are estimated, and
+ * nothing here is a recommendation to buy.
  */
 (function (raiz) {
   "use strict";
 
-  // --- Normal acumulada: Hart (1968), error < 1e-15 en doble precision ------
+  // --- Cumulative normal: Hart (1968), error < 1e-15 in double precision ---
   function ncdf(x) {
     if (!isFinite(x)) return x > 0 ? 1 : 0;
     const z = Math.abs(x);
@@ -59,9 +64,9 @@
     return Math.max(esCall ? s - k : k - s, 0);
   }
 
-  /* Black-Scholes con rendimiento de dividendo continuo q.
-     Misma parametrizacion que quantileflow/opciones.py: se descuenta el
-     forward F = S e^{(r-q)T} con D = e^{-rT}. */
+  /* Black-Scholes with a continuous dividend yield q.
+     Same parametrisation as quantileflow/opciones.py: the forward
+     F = S e^{(r-q)T} is discounted with D = e^{-rT}. */
   function precioBS(S, K, T, r, q, sigma, esCall) {
     if (!(T > 0) || !(sigma > 0)) return pago(S, K, esCall);
     const F = S * Math.exp((r - q) * T);
@@ -73,9 +78,9 @@
                   : D * (K * ncdf(-d2) - F * ncdf(-d1));
   }
 
-  /* Delta, gamma, vega por punto de IV y theta por dia.
-     vega_por_punto_iv = vega/100 y theta_por_dia = -(dV/dT)/365, las mismas
-     convenciones que usa comparador.py al leer las griegas del PDE. */
+  /* Delta, gamma, vega per IV point and theta per day.
+     vega_por_punto_iv = vega/100 and theta_por_dia = -(dV/dT)/365, the same
+     conventions comparador.py uses when reading the greeks off the PDE. */
   function griegasBS(S, K, T, r, q, sigma, esCall) {
     if (!(T > 0) || !(sigma > 0)) {
       const dentro = esCall ? S > K : S < K;
@@ -92,7 +97,7 @@
     const n1 = npdf(d1);
     const delta = esCall ? eq * ncdf(d1) : eq * (ncdf(d1) - 1);
     const gamma = eq * n1 / (S * sigma * rt);
-    const vega = S * eq * n1 * rt;              // por unidad de volatilidad
+    const vega = S * eq * n1 * rt;              // per unit of volatility
     const difusion = S * eq * n1 * sigma / (2 * rt);
     const dVdT = esCall
       ? difusion - q * S * eq * ncdf(d1) + r * K * er * ncdf(d2)
@@ -101,33 +106,33 @@
              vegaPorPuntoIv: vega / 100, thetaPorDia: -dVdT / 365 };
   }
 
-  // --- Validaciones, equivalentes a las de ContratoEscenario y Escenario ----
+  // --- Validation, equivalent to ContratoEscenario and Escenario -----------
   function validarContrato(c) {
-    if (typeof c.id !== "string" || !c.id.trim()) throw new Error("identificador no vacio requerido");
-    if (typeof c.esCall !== "boolean") throw new Error("esCall debe ser booleano");
+    if (typeof c.id !== "string" || !c.id.trim()) throw new Error("a non-empty identifier is required");
+    if (typeof c.esCall !== "boolean") throw new Error("esCall must be a boolean");
     for (const v of [c.strike, c.dte, c.iv, c.bid, c.ask]) {
-      if (!isFinite(v)) throw new Error("parametros de contrato no finitos");
+      if (!isFinite(v)) throw new Error("contract parameters are not finite");
     }
-    if (Math.min(c.strike, c.dte, c.iv) <= 0) throw new Error("strike, dte e iv deben ser positivos");
-    if (c.bid < 0 || c.ask <= 0 || c.bid > c.ask) throw new Error("cotizacion invalida: " + c.id);
+    if (Math.min(c.strike, c.dte, c.iv) <= 0) throw new Error("strike, dte and iv must be positive");
+    if (c.bid < 0 || c.ask <= 0 || c.bid > c.ask) throw new Error("invalid quote: " + c.id);
     const m = c.multiplicador === undefined ? 100 : c.multiplicador;
-    if (!Number.isInteger(m) || m <= 0) throw new Error("multiplicador debe ser entero positivo");
+    if (!Number.isInteger(m) || m <= 0) throw new Error("multiplier must be a positive integer");
   }
 
   function validarEscenario(e) {
-    if (typeof e.nombre !== "string" || !e.nombre.trim()) throw new Error("nombre de escenario requerido");
+    if (typeof e.nombre !== "string" || !e.nombre.trim()) throw new Error("a scenario name is required");
     for (const v of [e.dias, e.retornoSpot, e.cambioIv === undefined ? 0 : e.cambioIv]) {
-      if (!isFinite(v)) throw new Error("escenario no finito");
+      if (!isFinite(v)) throw new Error("scenario is not finite");
     }
-    if (e.dias < 0 || e.retornoSpot <= -1) throw new Error("plazo negativo o spot no positivo");
+    if (e.dias < 0 || e.retornoSpot <= -1) throw new Error("negative horizon or non-positive spot");
   }
 
-  /* Compara el PnL neto total de cada candidato bajo el MISMO presupuesto.
+  /* Compares the total net PnL of every candidate on the SAME budget.
    *
-   * Politica, igual que en Python: se compra la cantidad entera maxima de una
-   * sola serie que cabe en el presupuesto reservando TAMBIEN la comision de
-   * cierre. No se mezclan series, no se optimiza el tamano y no se asignan
-   * probabilidades a los escenarios. */
+   * Policy, as in Python: buy the largest whole quantity of a single series
+   * that fits the budget while ALSO reserving the closing commission. Series
+   * are never mixed, no optimal size is sought, and no probability is attached
+   * to any scenario. */
   function compararPosiciones(cfg) {
     const spot = cfg.spot;
     const presupuesto = cfg.presupuesto;
@@ -140,17 +145,17 @@
     const escenarios = cfg.escenarios.slice();
     const objetivo = cfg.escenarioObjetivo;
 
-    if (!isFinite(presupuesto) || presupuesto <= 0) throw new Error("presupuesto debe ser positivo y finito");
+    if (!isFinite(presupuesto) || presupuesto <= 0) throw new Error("budget must be positive and finite");
     if (!isFinite(comision) || !isFinite(semispread) || Math.min(comision, semispread) < 0) {
-      throw new Error("costos invalidos");
+      throw new Error("invalid costs");
     }
-    if (!isFinite(spot) || spot <= 0) throw new Error("referencia invalida");
-    if (!escenarios.length) throw new Error("se requiere al menos un escenario");
+    if (!isFinite(spot) || spot <= 0) throw new Error("invalid reference");
+    if (!escenarios.length) throw new Error("at least one scenario is required");
     const nombres = new Set(escenarios.map(function (e) { return e.nombre; }));
-    if (nombres.size !== escenarios.length) throw new Error("escenarios deben ser unicos");
-    if (!nombres.has(objetivo)) throw new Error("escenario objetivo debe estar en la lista");
+    if (nombres.size !== escenarios.length) throw new Error("scenarios must be unique");
+    if (!nombres.has(objetivo)) throw new Error("the target scenario must be on the list");
     const ids = new Set(contratos.map(function (c) { return c.id; }));
-    if (ids.size !== contratos.length) throw new Error("identificadores deben ser unicos");
+    if (ids.size !== contratos.length) throw new Error("identifiers must be unique");
     contratos.forEach(validarContrato);
     escenarios.forEach(validarEscenario);
 
@@ -160,7 +165,7 @@
     for (const c of contratos) {
       const m = c.multiplicador === undefined ? 100 : c.multiplicador;
       const unitario = c.ask * m + comision;
-      let n = Math.floor(presupuesto / (unitario + comision));   // reserva el cierre
+      let n = Math.floor(presupuesto / (unitario + comision));   // reserves the close
       if (Object.prototype.hasOwnProperty.call(limites, c.id)) n = Math.min(n, limites[c.id]);
       const vencePronto = escenarios.some(function (e) { return e.dias > c.dte; });
       if (n === 0 || vencePronto) {
@@ -179,11 +184,11 @@
         const alVencer = e.dias === c.dte;
         const restante = (c.dte - e.dias) / 365;
         const sigma = c.iv + (e.cambioIv === undefined ? 0 : e.cambioIv);
-        if (!(sigma > 0) || !isFinite(sigma)) throw new Error("volatilidad del escenario no positiva");
+        if (!(sigma > 0) || !isFinite(sigma)) throw new Error("scenario volatility is not positive");
         const s = spot * (1 + e.retornoSpot);
         const teorico = alVencer ? pago(s, c.strike, c.esCall)
                                  : precioBS(s, c.strike, restante, tasa, q, sigma, c.esCall);
-        // Al vencer prevalece el payoff y no se descuenta el semispread de salida.
+        // At expiry the payoff rules and no exit semispread is taken out.
         const salida = alVencer ? teorico : Math.max(0, teorico - semispread);
         const pnl = n * (salida * m - comision) - desembolso;
         casos[e.nombre] = {
@@ -248,26 +253,26 @@
         retornoObjetivo: porCampo("retornoObjetivo").map(function (f) { return f.contrato; }),
         robustez: robustos.map(function (f) { return f.contrato; }),
       },
-      criterioRobusto: "maximizar el minimo PnL de la lista; el efectivo tiene PnL cero",
+      criterioRobusto: "maximise the minimum PnL on the list; cash has zero PnL",
       alternativaRobusta: ganador && ganador.pnlMinimoEscenarios > 0 ? ganador.contrato : "efectivo",
       pnlRobustoConEfectivo: Math.max(0, ganador ? ganador.pnlMinimoEscenarios : 0),
       comparacionPresupuesto: {
-        criterioPrincipal: "PnL neto total en el escenario objetivo; mismo presupuesto",
+        criterioPrincipal: "total net PnL in the target scenario; same budget",
         mejorEnObjetivoIncluyendoCaja: pnlMejor > 0 ? mejor.contrato : "efectivo",
         pnlMejorEnObjetivoIncluyendoCaja: Math.max(0, pnlMejor),
         efectivo: { capitalInicial: presupuesto, capitalFinal: presupuesto, pnl: 0 },
-        politicaCantidad: "maximo entero por serie dentro de presupuesto y limites de cantidad",
+        politicaCantidad: "largest whole quantity per series within budget and quantity limits",
         mezclaSeries: false,
-        probabilidadesEscenarios: "no estimadas",
+        probabilidadesEscenarios: "not estimated",
       },
-      alcance: "europeo, IV plana por contrato; comparacion condicional, no pronostico",
-      datos: "sinteticos",
+      alcance: "European, flat IV per contract; conditional comparison, not a forecast",
+      datos: "synthetic",
     };
   }
 
-  /* Mapa de PnL de UNA posicion sobre una rejilla de movimiento x cambio de IV,
-   * a un numero de dias transcurridos fijo. Cada celda se revalora completa, no
-   * con la aproximacion local de las griegas. */
+  /* PnL map of ONE position over a grid of move x IV change, at a fixed number
+   * of days elapsed. Every cell is fully repriced, not approximated locally
+   * with the greeks. */
   function mapaPnl(cfg) {
     const c = cfg.contrato;
     const m = c.multiplicador === undefined ? 100 : c.multiplicador;
@@ -299,8 +304,8 @@
              dias: cfg.dias, cantidad: n, desembolso: desembolso };
   }
 
-  /* Cadena sintetica: sonrisa con sesgo a la baja, cotizaciones alrededor del
-   * teorico con un ancho controlado. No es una cadena de mercado. */
+  /* Synthetic chain: a downward-skewed smile with quotes around the
+   * theoretical price at a controlled width. This is not a market chain. */
   function cadenaSintetica(cfg) {
     const spot = cfg.spot, tasa = cfg.tasa, q = cfg.q;
     const contratos = [];

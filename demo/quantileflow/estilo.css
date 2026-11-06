@@ -1,5 +1,5 @@
-/* Demo de QuantileFlow. Mismos tokens que el portafolio para que se lea como
-   parte del sitio. */
+/* QuantileFlow demo. Same design tokens as the portfolio so it reads as
+   part of the same site. */
 :root {
   color-scheme: light;
   --paper: #f8f8f5;
