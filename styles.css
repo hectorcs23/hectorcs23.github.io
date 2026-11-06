@@ -341,3 +341,5 @@ footer p { margin: 0; }
 
 .project-text { grid-area: description; }
 .project-text .project-description { max-width: 67ch; }
+
+.project-link .idioma { color: var(--muted); font-weight: 400; }
