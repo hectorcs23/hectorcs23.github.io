@@ -49,8 +49,10 @@
             <figcaption>Out-of-sample cumulative wealth compares the exit-forecasting approaches with a buy-and-hold benchmark.</figcaption>
           </figure>
           <p class="project-description">The engine combines market regime, technical setup, option quality and trade-plan discipline into a continuous score. Hard stops reject trades that violate non-negotiable constraints; accepted trades continue to Monte Carlo probability-of-profit analysis and Kelly-capped position sizing. The decision path stays explicit and auditable instead of hiding behind a black-box model.</p>
+          <p class="project-description">A separate study asked whether a forecast should drive the <em>exit</em>: ten large-cap tickers, training through 2021, out-of-sample from 2024, 5 bps of costs. A GJR-GARCH(1,1)-t volatility filter looked best on risk-adjusted terms — Sharpe 1.31 against 1.16 for buy and hold, with the drawdown cut from −27.5% to −18.5% — while an EWMA filter and a DeepAR-style LSTM did not. A second, stricter run settled it: with per-asset normalization, gradual exits and a quantile LightGBM benchmark, the bootstrap 90% interval for the Sharpe difference against buy and hold straddles zero.</p>
           <div class="project-bottom">
             <p class="project-result"><span>Key output</span> Approve, reject or resize before the order is placed.</p>
+            <p class="project-result"><span>What the validation decided</span> The GARCH advantage did not hold up, so none of these exit rules was added to the live score. The engine is explainable, not proven profitable.</p>
             <a class="project-link" href="https://github.com/hectorcs23/riskgate-options-risk-engine" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>
           </div>
         </article>
@@ -212,6 +214,30 @@
           <div class="project-bottom">
             <p class="project-result"><span>Out-of-sample result</span> Gasoline-demand error improved by 17–21% over the naive forecast.</p>
             <a class="project-link" href="https://github.com/hectorcs23/sarima-fuel-demand" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+
+        <article class="project" data-category="fin">
+          <div class="project-topline">
+            <span class="project-number">10</span>
+            <ul class="tag-list" aria-label="QuantileFlow topics">
+              <li>Options</li><li>PDE &amp; numerical methods</li><li>Python</li>
+            </ul>
+          </div>
+          <h2>QuantileFlow</h2>
+          <p class="project-lede">What a small budget can actually buy in options, and what the implied distribution says about it.</p>
+          <figure class="project-visual">
+            <img src="assets/projects/quantileflow-budget.png" alt="Net profit and loss against the move in the underlying for four whole-contract option positions bought with the same US$300 budget, plus a flat line for staying in cash" loading="lazy" decoding="async" />
+            <figcaption>The same budget buys very different payoff shapes. Near zero move every position loses; staying in cash is the flat line the others have to beat.</figcaption>
+          </figure>
+          <p class="project-description">Two halves. The comparator asks a budget question honestly: how many whole contracts of one series fit once both commissions are reserved, what the position is worth after repricing it under each scenario, and whether any candidate beats simply holding cash. The numerical core underneath recovers the risk-neutral distribution from the option chain and its sensitivities with a PDE solver, checked against closed-form Black–Scholes and put-call parity rather than trusted on faith. Scenarios carry no estimated probabilities, so the worst case of a list is never dressed up as a maximum loss.</p>
+          <div class="project-bottom">
+            <p class="project-result"><span>On a real capture</span> Of 1,889 observed calls, 57 were computable with US$300 and seven days — and 0 passed the quality gates as enabled purchases. The indicative feed and the parity-implied index reference are why.</p>
+            <div class="project-links">
+              <a class="project-link" href="demo/quantileflow/">Interactive demo <span aria-hidden="true">→</span></a>
+              <a class="project-link" href="https://github.com/hectorcs23/QuantileFlow/blob/main/docs/CONTRATOS_OBSERVADOS_2026-11-06.md" rel="noreferrer">Observed-contracts study <span aria-hidden="true">↗</span></a>
+              <a class="project-link" href="https://github.com/hectorcs23/QuantileFlow" rel="noreferrer">View repository <span aria-hidden="true">↗</span></a>
+            </div>
           </div>
         </article>
       </div>
