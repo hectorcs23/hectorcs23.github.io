@@ -1,0 +1,735 @@
+{
+ "procedencia": "experiments/valoracion_consistente_20261010/resultados/bs_90_casos.csv del repositorio QuantileFlow, commit 2885f4e",
+ "parametros": {
+  "spot": 100.0,
+  "tasa": 0.04,
+  "q": 0.013,
+  "malla_pde": {
+   "nodos": 1601,
+   "pasos": 2400
+  }
+ },
+ "nota": "Casos de referencia del motor Python: precio_pde es el solver PDE, precio_bs la forma cerrada. Sirven para contrastar el motor de esta demo. Datos sinteticos.",
+ "casos": [
+  {
+   "dias": 7.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.044115623399284,
+   "precio_bs": 10.04408628426133
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 8.22890968246048e-08,
+   "precio_bs": 6.232434480789054e-08
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 0.8546643784373814,
+   "precio_bs": 0.8544111861679373
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 0.8028805460889257,
+   "precio_bs": 0.8026566729926854
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 1.3432603097352136e-06,
+   "precio_bs": 1.1068039226101263e-06
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 9.940549219673587,
+   "precio_bs": 9.940578302390383
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.045155656990202,
+   "precio_bs": 10.045106009228709
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.001040127114376747,
+   "precio_bs": 0.0010197872917228957
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 1.4065605813345539,
+   "precio_bs": 1.4064485425997764
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 1.354776760220461,
+   "precio_bs": 1.3546940294245173
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 0.003443442009692208,
+   "precio_bs": 0.0033954110390557193
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 9.943991329657333,
+   "precio_bs": 9.943972606625541
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.152536197901,
+   "precio_bs": 10.15237479906649
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.10842070734545764,
+   "precio_bs": 0.10828857712950445
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 2.5104147624951354,
+   "precio_bs": 2.5104354953584136
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 2.4586309807013267,
+   "precio_bs": 2.4586809821831617
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 0.18252833300496543,
+   "precio_bs": 0.18236425512226273
+  },
+  {
+   "dias": 7.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 10.123076259972889,
+   "precio_bs": 10.12294145070873
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.088259346822422,
+   "precio_bs": 10.088225378842655
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.00010425849766561953,
+   "precio_bs": 9.96431392716372e-05
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 1.2233528530143296,
+   "precio_bs": 1.2231994966288326
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 1.1198670624820872,
+   "precio_bs": 1.1197430587179444
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 0.0005690603880787161,
+   "precio_bs": 0.0005511487823864281
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 9.881752567648352,
+   "precio_bs": 9.881764008664017
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.112716905526957,
+   "precio_bs": 10.112596733413094
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.024561839665331164,
+   "precio_bs": 0.024470997709705917
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 2.003312963377984,
+   "precio_bs": 2.0032797411757173
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 1.8998271953088737,
+   "precio_bs": 1.8998233032648362
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 0.05319523121115494,
+   "precio_bs": 0.053051045188245764
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 9.93437876093456,
+   "precio_bs": 9.934263905069882
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.549622651482613,
+   "precio_bs": 10.549490275589116
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.46146766424194435,
+   "precio_bs": 0.4613645398857293
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 3.563090729235831,
+   "precio_bs": 3.563192221576388
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 3.459605039787681,
+   "precio_bs": 3.459735783665514
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 0.6721967244675578,
+   "precio_bs": 0.6720853069311832
+  },
+  {
+   "dias": 14.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 10.553380332811924,
+   "precio_bs": 10.553298166812821
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.196812703828186,
+   "precio_bs": 10.196727830203155
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.008170936069297594,
+   "precio_bs": 0.008115533355988497
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 1.8247932699507332,
+   "precio_bs": 1.8247303044712055
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 1.6033287745961997,
+   "precio_bs": 1.6032952800283933
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 0.02442008185837913,
+   "precio_bs": 0.024298544513366955
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 9.770132858908202,
+   "precio_bs": 9.770040792474898
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.38706531605918,
+   "precio_bs": 10.386911826014705
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.19842359640816895,
+   "precio_bs": 0.19829952916753177
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 2.964533459273352,
+   "precio_bs": 2.9645841802537447
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 2.7430690120266954,
+   "precio_bs": 2.7431491558109324
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 0.3423547475322036,
+   "precio_bs": 0.3421897123287494
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 10.088067572689903,
+   "precio_bs": 10.087931960290293
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 11.569279801535316,
+   "precio_bs": 11.569271117145426
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 1.3806382502619348,
+   "precio_bs": 1.380658820298268
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 5.243309090715157,
+   "precio_bs": 5.243515507582524
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 5.02184481184613,
+   "precio_bs": 5.022080483139718
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 1.8573269011203293,
+   "precio_bs": 1.8573548020843103
+  },
+  {
+   "dias": 30.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 11.603039894655659,
+   "precio_bs": 11.603097050045866
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.457371521418212,
+   "precio_bs": 10.457234756207741
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.08097263087571292,
+   "precio_bs": 0.08086571496572215
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 2.64267847511757,
+   "precio_bs": 2.6426901182032823
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 2.2007418625284636,
+   "precio_bs": 2.2007833549146483
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 0.18872837337926682,
+   "precio_bs": 0.1885317079169066
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 9.681254038743553,
+   "precio_bs": 9.681087222581668
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 11.05490892604475,
+   "precio_bs": 11.0548228072606
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.6785101316153618,
+   "precio_bs": 0.6784537660185807
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 4.249087338181527,
+   "precio_bs": 4.249221096844275
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 3.8071508217055285,
+   "precio_bs": 3.807314333555649
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 1.0690588248682815,
+   "precio_bs": 1.0689771535257002
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 10.561584586345672,
+   "precio_bs": 10.561532668190452
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 13.268007382994943,
+   "precio_bs": 13.268159039151799
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 2.891608924961518,
+   "precio_bs": 2.89178999790979
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 7.4597670642178775,
+   "precio_bs": 7.460095111108158
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 7.017830884137844,
+   "precio_bs": 7.0181883478195175
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 3.771648471802743,
+   "precio_bs": 3.771844618674069
+  },
+  {
+   "dias": 60.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 13.264174569676102,
+   "precio_bs": 13.264400133338828
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 10.767214014688955,
+   "precio_bs": 10.767083583958577
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.15,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 0.2039102894206859,
+   "precio_bs": 0.20381029008005538
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 3.2939144416479267,
+   "precio_bs": 3.293969386869323
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.15,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 2.6324653794171997,
+   "precio_bs": 2.6325507560283454
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 0.44421152972389816,
+   "precio_bs": 0.44402175615708345
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.15,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 9.684617130530714,
+   "precio_bs": 9.684457788353638
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 11.731940722232425,
+   "precio_bs": 11.731924971064362
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.25,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 1.1686371409799847,
+   "precio_bs": 1.1686516771858302
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 5.254699917707508,
+   "precio_bs": 5.254888444438973
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.25,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 4.59325099949261,
+   "precio_bs": 4.593469813597981
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 1.8023839082716693,
+   "precio_bs": 1.802377859347903
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.25,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 11.042789653094314,
+   "precio_bs": 11.042813891544464
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "C",
+   "precio_pde": 14.707047626897987,
+   "precio_bs": 14.707308965299365
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.45,
+   "strike": 90.0,
+   "tipo": "P",
+   "precio_pde": 4.143744549843391,
+   "precio_bs": 4.144035671420839
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "C",
+   "precio_pde": 9.172306238646694,
+   "precio_bs": 9.172721906914301
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.45,
+   "strike": 100.0,
+   "tipo": "P",
+   "precio_pde": 8.510857824629642,
+   "precio_bs": 8.511303276073317
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "C",
+   "precio_pde": 5.375230372340449,
+   "precio_bs": 5.375540673604746
+  },
+  {
+   "dias": 90.0,
+   "sigma": 0.45,
+   "strike": 110.0,
+   "tipo": "P",
+   "precio_pde": 14.615636621360938,
+   "precio_bs": 14.615976705801318
+  }
+ ]
+}

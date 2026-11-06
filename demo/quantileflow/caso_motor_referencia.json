@@ -1,0 +1,676 @@
+{
+ "procedencia": "hectorcs23/QuantileFlow, commit 2885f4e. esperado: comparar_contratos(motor='clasico'); referencia_pde: comparar_posiciones (solver PDE).",
+ "nota": "Referencia para contrastar el port a JavaScript. Datos sinteticos: el spot es 100 y la cadena se genera con Black-Scholes. No hay datos de mercado.",
+ "entrada": {
+  "spot": 100.0,
+  "tasa": 0.04,
+  "q": 0.013,
+  "presupuesto": 300.0,
+  "comision": 0.65,
+  "semispreadSalida": 0.04,
+  "escenarioObjetivo": "objetivo",
+  "contratos": [
+   {
+    "id": "C95-14d",
+    "strike": 95.0,
+    "dte": 14.0,
+    "esCall": true,
+    "iv": 0.3,
+    "bid": 5.63,
+    "ask": 5.73,
+    "multiplicador": 100
+   },
+   {
+    "id": "P95-14d",
+    "strike": 95.0,
+    "dte": 14.0,
+    "esCall": false,
+    "iv": 0.3,
+    "bid": 0.53,
+    "ask": 0.63,
+    "multiplicador": 100
+   },
+   {
+    "id": "C100-14d",
+    "strike": 100.0,
+    "dte": 14.0,
+    "esCall": true,
+    "iv": 0.25,
+    "bid": 1.95,
+    "ask": 2.05,
+    "multiplicador": 100
+   },
+   {
+    "id": "P100-14d",
+    "strike": 100.0,
+    "dte": 14.0,
+    "esCall": false,
+    "iv": 0.25,
+    "bid": 1.85,
+    "ask": 1.95,
+    "multiplicador": 100
+   },
+   {
+    "id": "C105-14d",
+    "strike": 105.0,
+    "dte": 14.0,
+    "esCall": true,
+    "iv": 0.23,
+    "bid": 0.29,
+    "ask": 0.39,
+    "multiplicador": 100
+   },
+   {
+    "id": "P105-14d",
+    "strike": 105.0,
+    "dte": 14.0,
+    "esCall": false,
+    "iv": 0.23,
+    "bid": 5.18,
+    "ask": 5.28,
+    "multiplicador": 100
+   },
+   {
+    "id": "C95-30d",
+    "strike": 95.0,
+    "dte": 30.0,
+    "esCall": true,
+    "iv": 0.3,
+    "bid": 6.52,
+    "ask": 6.62,
+    "multiplicador": 100
+   },
+   {
+    "id": "P95-30d",
+    "strike": 95.0,
+    "dte": 30.0,
+    "esCall": false,
+    "iv": 0.3,
+    "bid": 1.31,
+    "ask": 1.41,
+    "multiplicador": 100
+   },
+   {
+    "id": "C100-30d",
+    "strike": 100.0,
+    "dte": 30.0,
+    "esCall": true,
+    "iv": 0.25,
+    "bid": 2.91,
+    "ask": 3.01,
+    "multiplicador": 100
+   },
+   {
+    "id": "P100-30d",
+    "strike": 100.0,
+    "dte": 30.0,
+    "esCall": false,
+    "iv": 0.25,
+    "bid": 2.69,
+    "ask": 2.79,
+    "multiplicador": 100
+   },
+   {
+    "id": "C105-30d",
+    "strike": 105.0,
+    "dte": 30.0,
+    "esCall": true,
+    "iv": 0.23,
+    "bid": 0.9,
+    "ask": 1.0,
+    "multiplicador": 100
+   },
+   {
+    "id": "P105-30d",
+    "strike": 105.0,
+    "dte": 30.0,
+    "esCall": false,
+    "iv": 0.23,
+    "bid": 5.66,
+    "ask": 5.76,
+    "multiplicador": 100
+   }
+  ],
+  "escenarios": [
+   {
+    "nombre": "objetivo",
+    "dias": 7.0,
+    "retornoSpot": 0.03,
+    "cambioIv": 0.0
+   },
+   {
+    "nombre": "sin_movimiento",
+    "dias": 7.0,
+    "retornoSpot": 0.0,
+    "cambioIv": 0.0
+   },
+   {
+    "nombre": "contrario",
+    "dias": 7.0,
+    "retornoSpot": -0.03,
+    "cambioIv": 0.0
+   },
+   {
+    "nombre": "iv_baja",
+    "dias": 7.0,
+    "retornoSpot": 0.0,
+    "cambioIv": -0.05
+   }
+  ]
+ },
+ "esperado": {
+  "posiciones": [
+   {
+    "contrato": "C100-14d",
+    "cantidad": 1,
+    "desembolsoEntrada": 205.64999999999998,
+    "reservaComisionCierre": 0.65,
+    "capitalReservado": 206.29999999999998,
+    "efectivoLibre": 93.70000000000002,
+    "pnlMinimoEscenarios": -173.81272015966346,
+    "sensibilidadPosicion": {
+     "delta": 51.79400609820083,
+     "gamma": 8.1354906381642,
+     "vegaPorPuntoIv": 7.801155406458822,
+     "thetaPorDia": -7.32649732133636
+    },
+    "escenarios": {
+     "objetivo": {
+      "valorTeorico": 3.4243475513202863,
+      "precioSalidaAsumido": 3.3843475513202863,
+      "pnlPosicion": 132.13475513202866
+     },
+     "sin_movimiento": {
+      "valorTeorico": 1.4064485425997764,
+      "precioSalidaAsumido": 1.3664485425997763,
+      "pnlPosicion": -69.65514574002236
+     },
+     "contrario": {
+      "valorTeorico": 0.36487279840336506,
+      "precioSalidaAsumido": 0.3248727984033651,
+      "pnlPosicion": -173.81272015966346
+     },
+     "iv_baja": {
+      "valorTeorico": 1.130423618092647,
+      "precioSalidaAsumido": 1.090423618092647,
+      "pnlPosicion": -97.25763819073528
+     }
+    }
+   },
+   {
+    "contrato": "C105-14d",
+    "cantidad": 7,
+    "desembolsoEntrada": 277.55,
+    "reservaComisionCierre": 4.55,
+    "capitalReservado": 282.1,
+    "efectivoLibre": 17.899999999999988,
+    "pnlMinimoEscenarios": -282.1,
+    "sensibilidadPosicion": {
+     "delta": 104.75217829275766,
+     "gamma": 36.169941624628926,
+     "vegaPorPuntoIv": 31.9088252140562,
+     "thetaPorDia": -26.95945765699441
+    },
+    "escenarios": {
+     "objetivo": {
+      "valorTeorico": 0.569803882296981,
+      "precioSalidaAsumido": 0.5298038822969809,
+      "pnlPosicion": 88.76271760788666
+     },
+     "sin_movimiento": {
+      "valorTeorico": 0.09225817704864091,
+      "precioSalidaAsumido": 0.05225817704864091,
+      "pnlPosicion": -245.51927606595137
+     },
+     "contrario": {
+      "valorTeorico": 0.007023156358666627,
+      "precioSalidaAsumido": 0.0,
+      "pnlPosicion": -282.1
+     },
+     "iv_baja": {
+      "valorTeorico": 0.025651428105274057,
+      "precioSalidaAsumido": 0.0,
+      "pnlPosicion": -282.1
+     }
+    }
+   },
+   {
+    "contrato": "C105-30d",
+    "cantidad": 2,
+    "desembolsoEntrada": 201.3,
+    "reservaComisionCierre": 1.3,
+    "capitalReservado": 202.60000000000002,
+    "efectivoLibre": 97.39999999999999,
+    "pnlMinimoEscenarios": -162.3241958287618,
+    "sensibilidadPosicion": {
+     "delta": 50.021861898787236,
+     "gamma": 9.635906847987522,
+     "vegaPorPuntoIv": 18.215823904414766,
+     "thetaPorDia": -7.331873729574302
+    },
+    "escenarios": {
+     "objetivo": {
+      "valorTeorico": 1.5904457358868358,
+      "precioSalidaAsumido": 1.5504457358868358,
+      "pnlPosicion": 107.48914717736716
+     },
+     "sin_movimiento": {
+      "valorTeorico": 0.6905067308930602,
+      "precioSalidaAsumido": 0.6505067308930602,
+      "pnlPosicion": -72.49865382138799
+     },
+     "contrario": {
+      "valorTeorico": 0.2413790208561911,
+      "precioSalidaAsumido": 0.20137902085619108,
+      "pnlPosicion": -162.3241958287618
+     },
+     "iv_baja": {
+      "valorTeorico": 0.35512500988997797,
+      "precioSalidaAsumido": 0.315125009889978,
+      "pnlPosicion": -139.57499802200442
+     }
+    }
+   },
+   {
+    "contrato": "P100-14d",
+    "cantidad": 1,
+    "desembolsoEntrada": 195.65,
+    "reservaComisionCierre": 0.65,
+    "capitalReservado": 196.3,
+    "efectivoLibre": 103.69999999999999,
+    "pnlMinimoEscenarios": -162.96591098787607,
+    "sensibilidadPosicion": {
+     "delta": -48.15614331763522,
+     "gamma": 8.1354906381642,
+     "vegaPorPuntoIv": 7.801155406458822,
+     "thetaPorDia": -6.588273821898098
+    },
+    "escenarios": {
+     "objetivo": {
+      "valorTeorico": 0.3733408901212394,
+      "precioSalidaAsumido": 0.3333408901212394,
+      "pnlPosicion": -162.96591098787607
+     },
+     "sin_movimiento": {
+      "valorTeorico": 1.3546940294245173,
+      "precioSalidaAsumido": 1.3146940294245173,
+      "pnlPosicion": -64.83059705754829
+     },
+     "contrario": {
+      "valorTeorico": 3.3123704332518655,
+      "precioSalidaAsumido": 3.2723704332518655,
+      "pnlPosicion": 130.93704332518658
+     },
+     "iv_baja": {
+      "valorTeorico": 1.078669104917388,
+      "precioSalidaAsumido": 1.038669104917388,
+      "pnlPosicion": -92.43308950826122
+     }
+    }
+   },
+   {
+    "contrato": "P100-30d",
+    "cantidad": 1,
+    "desembolsoEntrada": 279.65,
+    "reservaComisionCierre": 0.65,
+    "capitalReservado": 280.29999999999995,
+    "efectivoLibre": 19.700000000000024,
+    "pnlMinimoEscenarios": -158.1945400563227,
+    "sensibilidadPosicion": {
+     "delta": -47.28653268709789,
+     "gamma": 5.547826702480319,
+     "vegaPorPuntoIv": 11.399643909206134,
+     "thetaPorDia": -4.369998930573985
+    },
+    "escenarios": {
+     "objetivo": {
+      "valorTeorico": 1.2610545994367728,
+      "precioSalidaAsumido": 1.2210545994367727,
+      "pnlPosicion": -158.1945400563227
+     },
+     "sin_movimiento": {
+      "valorTeorico": 2.415020150381492,
+      "precioSalidaAsumido": 2.375020150381492,
+      "pnlPosicion": -42.7979849618508
+     },
+     "contrario": {
+      "valorTeorico": 4.12926770675111,
+      "precioSalidaAsumido": 4.08926770675111,
+      "pnlPosicion": 128.626770675111
+     },
+     "iv_baja": {
+      "valorTeorico": 1.9155621770782465,
+      "precioSalidaAsumido": 1.8755621770782465,
+      "pnlPosicion": -92.74378229217533
+     }
+    }
+   },
+   {
+    "contrato": "P95-14d",
+    "cantidad": 4,
+    "desembolsoEntrada": 254.6,
+    "reservaComisionCierre": 2.6,
+    "capitalReservado": 257.2,
+    "efectivoLibre": 42.800000000000004,
+    "pnlMinimoEscenarios": -257.2,
+    "sensibilidadPosicion": {
+     "delta": -71.47697449184244,
+     "gamma": 17.779267713902055,
+     "vegaPorPuntoIv": 20.458335451613326,
+     "thetaPorDia": -21.36529745475411
+    },
+    "escenarios": {
+     "objetivo": {
+      "valorTeorico": 0.038936264783359445,
+      "precioSalidaAsumido": 0.0,
+      "pnlPosicion": -257.2
+     },
+     "sin_movimiento": {
+      "valorTeorico": 0.20595565809798344,
+      "precioSalidaAsumido": 0.16595565809798343,
+      "pnlPosicion": -190.8177367608066
+     },
+     "contrario": {
+      "valorTeorico": 0.7713474592159907,
+      "precioSalidaAsumido": 0.7313474592159906,
+      "pnlPosicion": 35.33898368639623
+     },
+     "iv_baja": {
+      "valorTeorico": 0.0996221597101288,
+      "precioSalidaAsumido": 0.059622159710128804,
+      "pnlPosicion": -233.35113611594846
+     }
+    }
+   },
+   {
+    "contrato": "P95-30d",
+    "cantidad": 2,
+    "desembolsoEntrada": 283.3,
+    "reservaComisionCierre": 1.3,
+    "capitalReservado": 284.6,
+    "efectivoLibre": 15.399999999999988,
+    "pnlMinimoEscenarios": -189.81825412498085,
+    "sensibilidadPosicion": {
+     "delta": -50.53895083683123,
+     "gamma": 7.427764481059258,
+     "vegaPorPuntoIv": 18.315035706721456,
+     "thetaPorDia": -8.753859766926455
+    },
+    "escenarios": {
+     "objetivo": {
+      "valorTeorico": 0.5139087293750957,
+      "precioSalidaAsumido": 0.4739087293750957,
+      "pnlPosicion": -189.81825412498085
+     },
+     "sin_movimiento": {
+      "valorTeorico": 1.0400167757072554,
+      "precioSalidaAsumido": 1.0000167757072553,
+      "pnlPosicion": -84.59664485854896
+     },
+     "contrario": {
+      "valorTeorico": 1.9267075207511093,
+      "precioSalidaAsumido": 1.8867075207511093,
+      "pnlPosicion": 92.74150415022183
+     },
+     "iv_baja": {
+      "valorTeorico": 0.6780680586499446,
+      "precioSalidaAsumido": 0.6380680586499445,
+      "pnlPosicion": -156.9863882700111
+     }
+    }
+   }
+  ],
+  "excluidos": [
+   {
+    "contrato": "C100-30d",
+    "motivo": "no cabe en presupuesto"
+   },
+   {
+    "contrato": "C95-14d",
+    "motivo": "no cabe en presupuesto"
+   },
+   {
+    "contrato": "C95-30d",
+    "motivo": "no cabe en presupuesto"
+   },
+   {
+    "contrato": "P105-14d",
+    "motivo": "no cabe en presupuesto"
+   },
+   {
+    "contrato": "P105-30d",
+    "motivo": "no cabe en presupuesto"
+   }
+  ]
+ },
+ "referencia_pde": {
+  "malla": {
+   "nodos": 801,
+   "pasos": 800,
+   "semiancho": 1.5
+  },
+  "posiciones": [
+   {
+    "contrato": "C100-14d",
+    "cantidad": 1,
+    "sensibilidadPosicion": {
+     "delta": 51.794358504667095,
+     "gamma": 8.145306139894483,
+     "vegaPorPuntoIv": 7.798020889405892,
+     "thetaPorDia": -7.323723536777411
+    },
+    "escenarios": {
+     "objetivo": {
+      "pnlPosicion": 132.22024814202206
+     },
+     "sin_movimiento": {
+      "pnlPosicion": -69.60316508658698
+     },
+     "contrario": {
+      "pnlPosicion": -173.73092397419356
+     },
+     "iv_baja": {
+      "pnlPosicion": -97.18448790068996
+     }
+    }
+   },
+   {
+    "contrato": "C105-14d",
+    "cantidad": 7,
+    "sensibilidadPosicion": {
+     "delta": 104.7160396257498,
+     "gamma": 36.12709096723031,
+     "vegaPorPuntoIv": 31.87990822620148,
+     "thetaPorDia": -26.937801183276246
+    },
+    "escenarios": {
+     "objetivo": {
+      "pnlPosicion": 89.33498478350083
+     },
+     "sin_movimiento": {
+      "pnlPosicion": -244.8845058846186
+     },
+     "contrario": {
+      "pnlPosicion": -282.1
+     },
+     "iv_baja": {
+      "pnlPosicion": -282.1
+     }
+    }
+   },
+   {
+    "contrato": "C105-30d",
+    "cantidad": 2,
+    "sensibilidadPosicion": {
+     "delta": 50.001667400947525,
+     "gamma": 9.63586038849137,
+     "vegaPorPuntoIv": 18.20603313210104,
+     "thetaPorDia": -7.328406347446046
+    },
+    "escenarios": {
+     "objetivo": {
+      "pnlPosicion": 107.52791179714518
+     },
+     "sin_movimiento": {
+      "pnlPosicion": -72.40083915569673
+     },
+     "contrario": {
+      "pnlPosicion": -162.1953781392193
+     },
+     "iv_baja": {
+      "pnlPosicion": -139.42451444430483
+     }
+    }
+   },
+   {
+    "contrato": "P100-14d",
+    "cantidad": 1,
+    "sensibilidadPosicion": {
+     "delta": -48.15590820951072,
+     "gamma": 8.145306139894483,
+     "vegaPorPuntoIv": 7.798022012565322,
+     "thetaPorDia": -6.585498766913786
+    },
+    "escenarios": {
+     "objetivo": {
+      "pnlPosicion": -162.89249227772513
+     },
+     "sin_movimiento": {
+      "pnlPosicion": -64.79033902532012
+     },
+     "contrario": {
+      "pnlPosicion": 131.00746856808738
+     },
+     "iv_baja": {
+      "pnlPosicion": -92.37166436716002
+     }
+    }
+   },
+   {
+    "contrato": "P100-30d",
+    "cantidad": 1,
+    "sensibilidadPosicion": {
+     "delta": -47.286608656664605,
+     "gamma": 5.552334874981617,
+     "vegaPorPuntoIv": 11.396549744069151,
+     "thetaPorDia": -4.368731781321947
+    },
+    "escenarios": {
+     "objetivo": {
+      "pnlPosicion": -158.18616215726922
+     },
+     "sin_movimiento": {
+      "pnlPosicion": -42.80519973643078
+     },
+     "contrario": {
+      "pnlPosicion": 128.635477537942
+     },
+     "iv_baja": {
+      "pnlPosicion": -92.73385817938379
+     }
+    }
+   },
+   {
+    "contrato": "P95-14d",
+    "cantidad": 4,
+    "sensibilidadPosicion": {
+     "delta": -71.43948773481765,
+     "gamma": 17.771326678197795,
+     "vegaPorPuntoIv": 20.44541944743495,
+     "thetaPorDia": -21.350898609738937
+    },
+    "escenarios": {
+     "objetivo": {
+      "pnlPosicion": -257.2
+     },
+     "sin_movimiento": {
+      "pnlPosicion": -190.54837610964307
+     },
+     "contrario": {
+      "pnlPosicion": 35.49404347221818
+     },
+     "iv_baja": {
+      "pnlPosicion": -233.0522591983615
+     }
+    }
+   },
+   {
+    "contrato": "P95-30d",
+    "cantidad": 2,
+    "sensibilidadPosicion": {
+     "delta": -50.52099176112211,
+     "gamma": 7.428460032149112,
+     "vegaPorPuntoIv": 18.30820603473458,
+     "thetaPorDia": -8.750346908714043
+    },
+    "escenarios": {
+     "objetivo": {
+      "pnlPosicion": -189.74515545678656
+     },
+     "sin_movimiento": {
+      "pnlPosicion": -84.57455453967893
+     },
+     "contrario": {
+      "pnlPosicion": 92.71349924771619
+     },
+     "iv_baja": {
+      "pnlPosicion": -156.9281366429413
+     }
+    }
+   }
+  ],
+  "excluidos": [
+   {
+    "contrato": "C100-30d",
+    "motivo": "no cabe en presupuesto"
+   },
+   {
+    "contrato": "C95-14d",
+    "motivo": "no cabe en presupuesto"
+   },
+   {
+    "contrato": "C95-30d",
+    "motivo": "no cabe en presupuesto"
+   },
+   {
+    "contrato": "P105-14d",
+    "motivo": "no cabe en presupuesto"
+   },
+   {
+    "contrato": "P105-30d",
+    "motivo": "no cabe en presupuesto"
+   }
+  ],
+  "alternativaRobusta": "efectivo",
+  "mejorEnObjetivo": "C100-14d",
+  "rankings": {
+   "ganancia_objetivo": [
+    "C100-14d",
+    "C105-30d",
+    "C105-14d",
+    "P100-30d",
+    "P100-14d",
+    "P95-30d",
+    "P95-14d"
+   ],
+   "retorno_objetivo": [
+    "C100-14d",
+    "C105-30d",
+    "C105-14d",
+    "P100-30d",
+    "P95-30d",
+    "P100-14d",
+    "P95-14d"
+   ],
+   "robustez": [
+    "P100-30d",
+    "C105-30d",
+    "P100-14d",
+    "C100-14d",
+    "P95-30d",
+    "P95-14d",
+    "C105-14d"
+   ]
+  }
+ }
+}

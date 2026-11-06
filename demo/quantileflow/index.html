@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>QuantileFlow — comparador por presupuesto</title>
+<meta name="description" content="Demo sintética del comparador de posiciones de opciones por presupuesto: cantidades enteras, costos, caja y mapas de PnL. Sin datos de mercado y sin conexión a ningún broker." />
+<link rel="icon" href="../../favicon.svg" />
+<link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+<a class="skip-link" href="#controles">Saltar a los controles</a>
+
+<header class="cabecera">
+  <p class="volver"><a href="../../index.html">← Portafolio de Héctor Campbell</a></p>
+  <h1>Comparador de posiciones por presupuesto</h1>
+  <p class="bajada">
+    Con un presupuesto fijo, ¿qué contrato entero conviene más y qué pasa si el mercado
+    no hace lo que esperabas? Esta demo responde eso con el mismo motor que
+    <a href="https://github.com/hectorcs23/QuantileFlow">QuantileFlow</a>, portado al navegador.
+  </p>
+  <p class="aviso" role="note">
+    <strong>Datos sintéticos.</strong> La cadena de opciones se genera aquí con Black-Scholes sobre
+    una sonrisa inventada. No hay datos de mercado, no hay conexión con ningún broker, no se piden
+    credenciales y no se estiman probabilidades. Nada de esto es una recomendación de compra.
+  </p>
+</header>
+
+<main>
+
+<section id="controles" aria-labelledby="t-controles">
+  <h2 id="t-controles">1. Presupuesto, costos y mercado</h2>
+  <div class="rejilla-campos">
+    <label>Presupuesto (USD)
+      <input type="number" id="presupuesto" value="300" min="10" max="100000" step="10" />
+    </label>
+    <label>Referencia del subyacente
+      <input type="number" id="spot" value="100" min="1" max="100000" step="1" />
+    </label>
+    <label>Comisión por contrato y lado (USD)
+      <input type="number" id="comision" value="0.65" min="0" max="20" step="0.05" />
+      <small>Se reserva también la del cierre.</small>
+    </label>
+    <label>Semispread de salida por unidad
+      <input type="number" id="semispread" value="0.04" min="0" max="5" step="0.01" />
+      <small>Se asume que se sale peor que el teórico.</small>
+    </label>
+    <label>Tasa libre de riesgo
+      <input type="number" id="tasa" value="0.04" min="-0.05" max="0.5" step="0.005" />
+    </label>
+    <label>Rendimiento de dividendo
+      <input type="number" id="q" value="0.013" min="0" max="0.2" step="0.001" />
+    </label>
+  </div>
+
+  <h3>La cadena sintética</h3>
+  <div class="rejilla-campos">
+    <label>Strikes (% sobre la referencia)
+      <input type="text" id="strikes" value="-10, -5, 0, 5, 10" />
+    </label>
+    <label>Plazos en días
+      <input type="text" id="plazos" value="14, 30, 60" />
+    </label>
+    <label>IV base
+      <input type="number" id="iv-base" value="0.25" min="0.02" max="2" step="0.01" />
+    </label>
+    <label>Sesgo de la sonrisa
+      <input type="number" id="sesgo" value="0.6" min="-3" max="3" step="0.05" />
+      <small>Positivo: el put OTM paga más IV.</small>
+    </label>
+    <label>Ancho relativo bid-ask
+      <input type="number" id="ancho" value="0.02" min="0" max="0.5" step="0.005" />
+    </label>
+    <label>Prima mínima para listar (USD)
+      <input type="number" id="prima-min" value="0.10" min="0.01" max="50" step="0.05" />
+    </label>
+  </div>
+</section>
+
+<section aria-labelledby="t-escenarios">
+  <h2 id="t-escenarios">2. Escenarios</h2>
+  <p class="nota">
+    Cada escenario es una salida: cuántos días pasaron, cuánto se movió el subyacente y cuánto
+    cambió la IV. El PnL de cada uno se obtiene <strong>revalorando el contrato completo</strong> en
+    esas condiciones, no con una aproximación local de las griegas. No se les asigna probabilidad.
+  </p>
+  <div class="rejilla-campos">
+    <label>Días hasta la salida
+      <input type="number" id="dias" value="7" min="0" max="365" step="1" />
+    </label>
+    <label>Movimiento objetivo (%)
+      <input type="number" id="mov-objetivo" value="3" min="-50" max="50" step="0.5" />
+    </label>
+    <label>Movimiento contrario (%)
+      <input type="number" id="mov-contrario" value="-3" min="-50" max="50" step="0.5" />
+    </label>
+    <label>Caída de IV del escenario adverso
+      <input type="number" id="caida-iv" value="0.05" min="0" max="0.5" step="0.01" />
+    </label>
+  </div>
+  <p id="aviso-escenarios" class="error" role="alert" hidden></p>
+</section>
+
+<section aria-labelledby="t-resultados">
+  <h2 id="t-resultados">3. Qué cabe y qué rinde</h2>
+  <p id="resumen-decision" class="resumen"></p>
+  <div class="tabla-envoltura">
+    <table id="tabla" aria-describedby="t-resultados">
+      <caption class="sr">Candidatos con el mismo presupuesto: cantidad entera, capital reservado y PnL por escenario</caption>
+      <thead><tr id="encabezado"></tr></thead>
+      <tbody id="cuerpo"></tbody>
+    </table>
+  </div>
+  <details id="det-excluidos">
+    <summary>Contratos excluidos y por qué (<span id="n-excluidos">0</span>)</summary>
+    <ul id="excluidos"></ul>
+  </details>
+</section>
+
+<section aria-labelledby="t-mapa">
+  <h2 id="t-mapa">4. Mapa de PnL</h2>
+  <p class="nota">
+    Cada celda revalora la posición completa a los días elegidos, moviendo el subyacente
+    (columnas) y desplazando la IV (filas). El color va de pérdida a ganancia; el número es el PnL
+    neto en USD, ya descontadas las dos comisiones y el semispread de salida.
+  </p>
+  <label class="campo-suelto">Posición a mapear
+    <select id="sel-posicion"></select>
+  </label>
+  <div id="mapa" class="mapa" role="img" aria-labelledby="t-mapa"></div>
+  <p id="mapa-pie" class="nota pie"></p>
+</section>
+
+<section aria-labelledby="t-como">
+  <h2 id="t-como">5. Cómo se construye</h2>
+  <ol class="explicacion">
+    <li><strong>Cuántos caben.</strong> El costo de un contrato es
+      <code>ask × multiplicador + comisión</code>. La cantidad es la parte entera de
+      <code>presupuesto ÷ (costo + comisión)</code>: se reserva también la comisión del cierre,
+      para no quedar sin efectivo al salir. No se mezclan series ni se busca un tamaño óptimo.</li>
+    <li><strong>Qué se reserva.</strong> <code>desembolso = cantidad × costo</code> y
+      <code>capital reservado = desembolso + cantidad × comisión</code>. El resto del presupuesto
+      es efectivo libre y no gana interés.</li>
+    <li><strong>Cuánto se gana.</strong> En cada escenario se revalora el contrato con
+      Black-Scholes a <code>IV + cambio</code> y <code>(días al vencimiento − días transcurridos)</code>.
+      Se asume salir un semispread por debajo del teórico, salvo al vencimiento, donde manda el
+      payoff. Entonces
+      <code>PnL = cantidad × (salida × multiplicador − comisión) − desembolso</code>.</li>
+    <li><strong>Qué gana la comparación.</strong> El criterio principal es el PnL neto en el
+      escenario objetivo con el mismo presupuesto. Aparte se ordena por retorno sobre el capital
+      reservado y por robustez, que es el peor PnL de la lista. Si ningún candidato tiene peor caso
+      positivo, gana <strong>quedarse en efectivo</strong>.</li>
+    <li><strong>Qué no hace.</strong> No asigna probabilidades a los escenarios, así que el peor
+      caso de la lista no es la pérdida máxima: en una opción larga se puede perder todo el
+      desembolso. No ejecuta órdenes y no es un pronóstico.</li>
+  </ol>
+</section>
+
+<section aria-labelledby="t-validacion">
+  <h2 id="t-validacion">6. Contraste con el motor Python</h2>
+  <p class="nota">
+    El motor Python revalora con un solver PDE; este port usa la forma cerrada de Black-Scholes.
+    Para europeas con IV plana —el alcance que el propio motor declara— son equivalentes. Estas
+    comprobaciones se ejecutan en tu navegador contra los casos de referencia del repositorio.
+  </p>
+  <button type="button" id="btn-validar">Ejecutar el contraste</button>
+  <div id="validacion" class="validacion" aria-live="polite"></div>
+</section>
+
+</main>
+
+<footer class="pie-sitio">
+  <p>
+    Código del motor y de la investigación:
+    <a href="https://github.com/hectorcs23/QuantileFlow">hectorcs23/QuantileFlow</a>.
+    El contraste de esta demo se reproduce con <code>node verificar.cjs</code> en
+    <code>demo/quantileflow/</code> del repositorio del sitio.
+  </p>
+  <p class="nota">
+    Procedencia: todo lo que ves aquí es sintético y se genera en tu navegador. Esta página no
+    hace ninguna petición de red salvo cargar sus propios archivos, y no guarda nada.
+  </p>
+</footer>
+
+<script src="motor.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
