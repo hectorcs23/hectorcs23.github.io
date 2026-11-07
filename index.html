@@ -242,6 +242,25 @@
             </div>
           </div>
         </article>
+        <article class="project" data-category="fin">
+          <div class="project-topline">
+            <span class="project-number">11</span>
+            <ul class="tag-list" aria-label="Blackjack Risk Lab topics">
+              <li>Decision science</li><li>Robust optimization</li><li>Python</li>
+            </ul>
+          </div>
+          <h2>Blackjack Risk Lab</h2>
+          <p class="project-lede">A solvable game used to test how uncertainty changes a decision.</p>
+          <figure class="project-visual">
+            <img src="assets/projects/blackjack-kelly.png" alt="Robust and parametric Kelly multipliers against simulated rounds on a logarithmic scale" loading="lazy" decoding="async" />
+            <figcaption>At the tested 64,000 rounds, the robust model selects zero while a parametric estimate still uses 56% of nominal Kelly.</figcaption>
+          </figure>
+          <p class="project-description">An exact combinatorial evaluator and a finite-shoe simulator make it possible to check estimated decisions against a specified model. The study compares nominal Kelly sizing with Wasserstein and chi-squared robust optimization, then challenges its own results with independent numerical problems and deliberate data mutations. It reports model behavior, not casino performance.</p>
+          <div class="project-bottom">
+            <p class="project-result"><span>Exact rule check</span> Changing only blackjack payout from 3:2 to 6:5 lowers player expected value by 1.352894 percentage points in the infinite-deck model without late surrender.</p>
+            <a class="project-link" href="https://github.com/hectorcs23/blackjack-risk-lab" rel="noreferrer">View research and results <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
       </div>
     </main>
 
